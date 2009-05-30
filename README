@@ -1,0 +1,35 @@
+Google Contacts for Mutt
+
+A simple perl script which helps you to integrate your Google Contacts
+with mutt email client.
+
+
+Installation
+
+First you need to set up your account. For that, create a file in your
+home directory, named ".google.ini". Fill that file with the following
+content:
+
+[account]
+email = 'example@google.com'
+password = 'yourGooglePassword'
+
+Replace the values to your login data.
+
+After that you can try it. Just run the contacts.pl script, then you
+will receive your contact list.
+
+Then open your .muttrc, and set for the
+query_command. For example:
+
+set query_command="/home/username/google/contacts/contacts.pl '%s'"
+
+Change the path if it's necessary. The %s will represent the pattern
+what you will search for. After the change, when you composing a mail
+and in the "To:" state you press Ctrl+t, the Mutt will use the
+script to complete the email address.
+
+
+license: http://www.gnu.org/licenses/gpl-2.0.html
+author: Lajos Koszti <ajnasz@ajnasz.hu>
+copyright: Copyright 2009, Lajos Koszti
