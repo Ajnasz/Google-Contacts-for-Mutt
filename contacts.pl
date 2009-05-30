@@ -16,8 +16,10 @@ use XML::Simple;
 use Encode;
 use Config::Simple;
 use Data::Dumper;
+use File::Basename;
 
 my $userconf = $ENV{'HOME'} . '/.google.ini';
+my $defaultconf = (dirname $0) . '/google.default.ini';
 
 # user configuration file exists
 unless (-e $userconf) {
@@ -27,9 +29,14 @@ unless (-e $userconf) {
 
 chmod 0600, $userconf;
 
-my $cfg_default = new Config::Simple('google.default.ini');
+my $cfg_default = new Config::Simple($defaultconf);
 my $cfg_user = new Config::Simple($userconf);
 
+unless ($cfg_default) {
+  print "default configuration file not found\n";
+  print $defaultconf . "\n";
+  exit;
+}
 unless ($cfg_user) {
   print "please set up you account in $userconf:\n\n";
   print "[account]\n";
