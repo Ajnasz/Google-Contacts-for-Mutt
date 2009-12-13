@@ -23,7 +23,7 @@ my $defaultconf = (dirname $0) . '/google.default.ini';
 
 # user configuration file exists
 unless (-e $userconf) {
-  print "users configuration file does not exists\n";
+  print "user configuration file does not exists\n";
   exit;
 }
 
@@ -78,19 +78,25 @@ if($res->is_success) {
   printResults(@found);
 } else {
   print $res->status_line, "\n";
+  exit 1;
 }
 
 sub authenticate {
   $ua = shift;
   my $req = HTTP::Request->new(POST => $GOOGLE::LOGIN_URL);
   $req->content_type('application/x-www-form-urlencoded');
-  my $content = 'accountType=' . $GOOGLE::ACCOUNT_TYPE . '&Email=' . $GOOGLE::ACCOUNT_EMAIL . '&Passwd=' . $GOOGLE::ACCOUNT_PASSWORD . '&service=' . $GOOGLE::APPLICATION_SERVICE . '&source=' . $GOOGLE::CLIENT_NAME;
+  my $content = 'accountType=' . $GOOGLE::ACCOUNT_TYPE
+              . '&Email=' . $GOOGLE::ACCOUNT_EMAIL
+              . '&Passwd=' . $GOOGLE::ACCOUNT_PASSWORD
+              . '&service=' . $GOOGLE::APPLICATION_SERVICE
+              . '&source=' . $GOOGLE::CLIENT_NAME;
+
   $req->content($content);
 
 # Pass request to the user agent and get a response back
   my $res = $ua->request($req);
-
 }
+
 sub getXML {
   my $auths = shift;
   my $ua = shift;
@@ -99,6 +105,7 @@ sub getXML {
   my $res = $ua->request($req);
   return $res->content;
 }
+
 sub parseEntries {
   my $xml = shift;
   my $parser = XML::Simple->new;
@@ -106,6 +113,7 @@ sub parseEntries {
   my $xml = $parser->XMLin($xml);
   my $entries = $xml->{'entry'};
 }
+
 sub search {
   my $searchterm = shift;
   my $entries = shift;
@@ -125,6 +133,7 @@ sub search {
   }
   return @results;
 }
+
 sub mailMatch {
   my ($entry, $searchterm, @mails) = @_;
   foreach(@mails) {
@@ -134,6 +143,7 @@ sub mailMatch {
   }
   return 0;
 }
+
 sub getMails {
   my $entry = shift;
   my @out;
@@ -148,6 +158,7 @@ sub getMails {
   }
   return @out;
 }
+
 sub printResults {
   my @results = @_;
   print 'results: ' . @results, "\n";
