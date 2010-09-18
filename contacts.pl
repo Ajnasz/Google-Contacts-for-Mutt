@@ -16,10 +16,11 @@ use Encode;
 use Config::Simple;
 use Data::Dumper;
 use File::Basename;
+use lib dirname($0) . '/lib/';
 use Contacts;
 
 my $userconf = $ENV{'HOME'} . '/.google.ini';
-my $defaultconf = (dirname $0) . '/google.default.ini';
+my $defaultconf = (dirname($0)) . '/google.default.ini';
 
 
 # user configuration file exists
