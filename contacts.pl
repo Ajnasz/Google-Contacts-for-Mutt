@@ -59,6 +59,8 @@ my $searchterm = $ARGV[0];
 if(!$searchterm) {
   $searchterm = '';
 }
+my $decode_searchterm=decode('utf-8', $searchterm);
+$searchterm=$decode_searchterm;
 my $account_email;
 my $account_password;
 my $contacts;
