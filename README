@@ -11,10 +11,16 @@ home directory, named ".google.ini". Fill that file with the following
 content:
 
 [account]
-email = 'example@google.com'
+email = 'example@gmail.com'
 password = 'yourGooglePassword'
 
+[account1]
+email = 'your-other-account@gmail.com'
+password = 'passwordForYourOtherGmailAccount'
+
 Replace the values to your login data.
+
+You can list more than one account, by increment a counter after the 'account' in the key.
 
 After that you can try it. Just run the contacts.pl script, then you
 will receive your contact list.
